@@ -17,16 +17,16 @@ Crie uma função que adicione um valor à variável criada acima, e retorne a s
     O valor da variável agora é VALOR.
 Onde VALOR é o novo valor da variável.
 */
-function add(valor) {
-    nova = valor;
+function add() {
+    nova = 25;
     return 'O valor da variável agora é ' + nova;
 }
 
 // Invoque a função criada acima.
-console.log(add(5));
+console.log(add);
 
 // Qual o retorno da função? (Use comentários de bloco).
-// O valor da variável agora é 5.
+/* O valor da variável agora é 25 */
 
 /*
 Crie uma função com as seguintes características:
@@ -36,7 +36,7 @@ Crie uma função com as seguintes características:
 3. O retorno da função deve ser a multiplicação dos 3 argumentos, somando `2` ao resultado da multiplicação.
 */
 function multiplicacao(a, b, c) {
-    if ( a == undefined || b == undefined || c == undefined ) {
+    if ( a === undefined || b === undefined || c === undefined ) {
         return 'Preencha todos os valores corretamente!';
     } else {
         return a * b * c + 2;
@@ -47,13 +47,13 @@ function multiplicacao(a, b, c) {
 console.log(multiplicacao(5, 5));
 
 // Qual o resultado da invocação acima? (Use comentários para mostrar o valor retornado).
-// Preencha todos os valores corretamente!
+/* Preencha todos os valores corretamente! */
 
 // Agora invoque novamente a função criada acima, mas passando todos os três argumentos necessários.
 console.log(multiplicacao(5, 5, 5));
 
 // Qual o resultado da invocação acima? (Use comentários para mostrar o valor retornado).
-// 110
+/* 110 */
 
 /*
 Crie uma função com as seguintes características:
@@ -64,16 +64,18 @@ Crie uma função com as seguintes características:
 5. Se nenhum argumento for passado, retorne o valor booleano `false`.
 6. E ainda, se nenhuma das condições acima forem atendidas, retorne `null`.
 */
-function ninja( a, b, c){
-    if (!a && !b && !c) {return false}
-    if (a != undefined && b == undefined && c == undefined){
+function ninja( a, b, c ) {
+    if ( a != undefined && b == undefined && c == undefined) {
         return a;
-    } else if (a != undefined && b != undefined && c == undefined) {
+    } else if ( a != undefined && b != undefined && c == undefined ) {
         return a + b;
-    } else if ( a != undefined && b != undefined && c != undefined){
-        return (a + b) / c;
-    } else {
-        return null
+    } else if ( a != undefined && b != undefined && c != undefined) {
+        return ( a + b ) / c;
+    } else if ( !a && !b && !c ) {
+        return false;
+    }
+    else{
+        return null;
     }
 }
 
