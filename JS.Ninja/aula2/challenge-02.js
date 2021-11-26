@@ -23,7 +23,7 @@ function add() {
 }
 
 // Invoque a função criada acima.
-console.log(add);
+console.log(add());
 
 // Qual o retorno da função? (Use comentários de bloco).
 /* O valor da variável agora é 25 */
@@ -71,10 +71,9 @@ function ninja( a, b, c ) {
         return a + b;
     } else if ( a != undefined && b != undefined && c != undefined) {
         return ( a + b ) / c;
-    } else if ( !a && !b && !c ) {
+    } else if ( a == undefined && b == undefined && c == undefined ) {
         return false;
-    }
-    else{
+    } else {
         return null;
     }
 }
