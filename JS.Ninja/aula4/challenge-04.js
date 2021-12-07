@@ -20,16 +20,16 @@ console.log(isTruthy(undefined))
 /*
 Invoque a função criada acima passando como parâmetro 10 valores `truthy`.
 */
-console.log(isTruthy(10))
-console.log(isTruthy(150))
-console.log(isTruthy(30))
-console.log(isTruthy(2))
-console.log(isTruthy(15000))
-console.log(isTruthy("faca"))
-console.log(isTruthy('feijao'))
-console.log(isTruthy('arroz'))
-console.log(isTruthy('carne'))
-console.log(isTruthy("machado"))
+console.log(isTruthy( 10 ));
+console.log(isTruthy( [] ));
+console.log(isTruthy( {} ));
+console.log(isTruthy( function(){} ));
+console.log(isTruthy( 15000 ));
+console.log(isTruthy( "faca" ));
+console.log(isTruthy( 1 + 1 ));
+console.log(isTruthy( 'arroz' ));
+console.log(isTruthy( 'carne' ));
+console.log(isTruthy( "machado" ));
 
 /*
 Declare uma variável chamada `carro`, atribuindo à ela um objeto com as
@@ -59,23 +59,29 @@ Crie um método chamado `mudarCor` que mude a cor do carro conforme a cor
 passado por parâmetro.
 */
 carro.mudarCor = function(cor){
-	carro.cor = cor
-}
+	carro.cor = cor;
+};
 
 /*
 Crie um método chamado `obterCor`, que retorne a cor do carro.
 */
-carro.obterCor = function(){ return carro.cor}
+carro.obterCor = function(){
+	return carro.cor;
+};
 
 /*
 Crie um método chamado `obterModelo` que retorne o modelo do carro.
 */
-carro.obterModelo = function(){return carro.modelo}
+carro.obterModelo = function(){
+	return carro.modelo;
+};
 
 /*
 Crie um método chamado `obterMarca` que retorne a marca do carro.
 */
-carro.obterMarca = function() {return carro.marca}
+carro.obterMarca = function() {
+	return carro.marca;
+};
 
 /*
 Crie um método chamado `obterMarcaModelo`, que retorne:
@@ -83,8 +89,8 @@ Crie um método chamado `obterMarcaModelo`, que retorne:
 Para retornar os valores de marca e modelo, utilize os métodos criados.
 */
 carro.obterMarcaModelo = function(){
-	return 'Esse carro é um ' + carro.marca + ' ' + carro.modelo;
-}
+	return 'Esse carro é um ' + carro.obterMarca() + ' ' + carro.obterModelo( );
+};
 
 /*
 Crie um método que irá adicionar pessoas no carro. Esse método terá as
@@ -110,9 +116,9 @@ carro.pessoaDentro = function( pessoas ){
 
 	if ( vagas >= pessoas ) {
 		carro.quantidadePessoas += pessoas;
-		return `Já temos ${carro.quantidadePessoas} pessoas no carro!`
+		return `Já temos ${carro.quantidadePessoas} pessoas no carro!`;
 	} else if ( pessoas > vagas) {
-		return 'só cabem mais '+ vagas + plural
+		return 'só cabem mais '+ vagas + plural;
 	}
 }
 
