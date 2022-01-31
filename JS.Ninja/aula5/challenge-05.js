@@ -7,7 +7,7 @@ var qualquer = [ 1, 2 , 3 , 4 , 5 ]
 /*
 Crie uma função que receba um array como parâmetro, e retorne esse array.
 */
-var funcao = function (array){
+function funcao (array){
 	return array;
 }
 
@@ -23,7 +23,7 @@ no primeiro parâmetro. O índice usado para retornar o valor, deve ser o númer
 segundo parâmetro.
 */
 // ?
-var indiceArr = function ( a , b ) {
+function indiceArr ( a , b ) {
     return a[b]
 }
 /*
@@ -35,7 +35,11 @@ var arry = [ 10, 20, 30, 40, 50]
 Invoque a função criada acima, fazendo-a retornar todos os valores do último
 array criado.
 */
+console.log(indiceArr( arry, 0))
+console.log(indiceArr( arry, 1))
 console.log(indiceArr( arry, 2))
+console.log(indiceArr( arry, 3))
+console.log(indiceArr( arry, 4))
 
 /*
 Crie uma função chamada `book`, que recebe um parâmetro, que será o nome do
@@ -51,7 +55,7 @@ propriedades:
 - Se o parâmetro não for passado, a função deve retornar o objeto com todos
 os livros.
 */
-var book = function ( livro, sobre ) {
+function book ( livro, sobre ) {
     var objeto = {
         'merlin1': {
             quatidadePaginas: 1800,
