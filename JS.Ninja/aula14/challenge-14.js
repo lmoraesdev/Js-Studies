@@ -84,7 +84,7 @@
 	*/
 	console.log( '\nInversed Name:' );
 	var inversedName = name.reverse().join('');
-	console.log( inversedName)
+	console.log( inversedName);
 	/*
 	Mostre no console o array `numberObjects`.
 	*/
@@ -119,13 +119,13 @@
 	else{
 		console.log('Não existe um objeto { number: 2 } em numberObjects :(');
 	}
-
+	
 	/*
 	Verifique se `justMod2Or3` é um array. Se for, mostre-o no console, no
 	formato de String.
 	*/
 	console.log( '\njustMod2Or3 é um array? Se for, a representação dele em String é:' );
 	if(Array.isArray(justMod2Or3)){
-		console.log(justMod2Or3.toLocaleString());
+		console.log(justMod2Or3.toString());
 	}
 }());
