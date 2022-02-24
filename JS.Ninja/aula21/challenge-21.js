@@ -28,13 +28,6 @@
 
 
 	function startTimer(){
-		if (interval < 0){
-		updateTimer();
-		}
-	}
-
-
-	function startTimer(){
 		$timer.value = +$timer.value + 1;
 		interval = setTimeout(startTimer, 1000);
 	}
