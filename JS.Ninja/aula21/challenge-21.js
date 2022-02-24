@@ -1,4 +1,4 @@
-(function(window, document){
+(function(win, doc){
 	'use strict'
 	/*
 	O desafio de hoje será um pequeno projeto: um cronômetro!
@@ -26,6 +26,12 @@
 	$stop.addEventListener('click', stopTimer, false);
 	$reset.addEventListener('click', resetTimer, false);
 
+
+	function startTimer(){
+		if (interval < 0){
+		updateTimer();
+		}
+	}
 
 
 	function startTimer(){
