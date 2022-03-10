@@ -24,8 +24,73 @@
 	- Ao pressionar o botão "CE", o input deve ficar zerado.
 	*/
 
+	var $visor = doc.querySelector('[data-js="visor"]');
+	var $buttonsNumbers = doc.querySelectorAll('[data-js="button-number"]');
+	var $buttonCE = doc.querySelector('[data-js="button-ce"]');
+	var $buttonOperations = doc.querySelectorAll('[data-js="button-operation"]');
+	var $buttonEqual = doc.querySelector('[data-js="button-equal"]');
 
+	$buttonsNumbers.forEach(function(button){
+		button.addEventListener('click', handleClickNumber, false);
+	});
 
+	$buttonOperations.forEach(function(button){
+		button.addEventListener('click', handleClickOperation, false);
+	});
+
+	$buttonCE.addEventListener('click', handleClickCE, false);
+	$buttonEqual.addEventListener('click', handleClickEqual, false);
+
+	function handleClickOperation(){
+		$visor.value = removeLastItem($visor.value);
+		$visor.value += this.value;
+	}
+
+	function handleClickNumber(){
+		$visor.value += this.value;
+	}
+
+	function handleClickCE(){
+		$visor.value = 0;
+	}
+
+	function handleClickEqual(){
+		$visor.value = removeLastItem($visor.value);
+		var values = $visor.value.match(/(?:\d+)|[+*-\/]?/g);
+		$visor.value = values.reduce(function(accumulated, actual){
+			var firstValue = accumulated.slice(0,-1);
+			var operator = accumulated.split('').pop();
+			var lastValue = removeLastItem(actual);
+			var lastOperator = isLastItemAnOperation(actual) ? actual.split('').pop() : '';
+
+			switch(operator){
+				case '+':
+					return ( Number(firstValue) + number(lastValue))+ lastOperator;
+				case '-':
+					return ( Number(firstValue) - number(lastValue))+ lastOperator;
+				case '*':
+					return ( Number(firstValue) * number(lastValue))+ lastOperator;
+				case '/':
+					return ( Number(firstValue) / number(lastValue))+ lastOperator;
+			}
+		});
+
+	}
+
+	function removeLastItem(number){
+		if(isLastItemAnOperation(number)){
+			return number.slice(0,-1);
+		}
+		return number;
+	}
+
+	function isLastItemAnOperation(number){
+		var operations = ['+', '-', '*', '/'];
+		var lastItem = number.split('').pop();
+		return operations.some(function(operator) {
+			return operator === lastItem;
+		});
+	}
 
 
 }(window, document));
