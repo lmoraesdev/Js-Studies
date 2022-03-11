@@ -42,7 +42,7 @@
 	$buttonEqual.addEventListener('click', handleClickEqual, false);
 
 	function handleClickOperation(){
-		$visor.value = removeLastItem($visor.value);
+		$visor.value = removeLastItemIfItIsAnOperator($visor.value);
 		$visor.value += this.value;
 	}
 
@@ -51,45 +51,47 @@
 	}
 
 	function handleClickCE(){
-		$visor.value = 0;
+		$visor.value = '';
 	}
 
 	function handleClickEqual(){
-		$visor.value = removeLastItem($visor.value);
-		var values = $visor.value.match(/(?:\d+)|[+*-\/]?/g);
-		$visor.value = values.reduce(function(accumulated, actual){
-			var firstValue = accumulated.slice(0,-1);
+		$visor.value = removeLastItemIfItIsAnOperator($visor.value);
+		var allvalues = $visor.value.match(/\d+[+-x÷]?/g);
+
+		$visor.value = allvalues.reduce(function(accumulated, actual) {
+			var firstValue = accumulated.slice(0, -1);
 			var operator = accumulated.split('').pop();
-			var lastValue = removeLastItem(actual);
+			var lastValue = removeLastItemIfItIsAnOperator(actual);
 			var lastOperator = isLastItemAnOperation(actual) ? actual.split('').pop() : '';
 
 			switch(operator){
 				case '+':
-					return ( Number(firstValue) + number(lastValue))+ lastOperator;
+					return ( Number(firstValue) + Number(lastValue) ) + lastOperator;
 				case '-':
-					return ( Number(firstValue) - number(lastValue))+ lastOperator;
-				case '*':
-					return ( Number(firstValue) * number(lastValue))+ lastOperator;
-				case '/':
-					return ( Number(firstValue) / number(lastValue))+ lastOperator;
+					return ( Number(firstValue) - Number(lastValue) ) + lastOperator;
+				case 'x':
+					return ( Number(firstValue) * Number(lastValue) ) + lastOperator;
+				case '÷':
+					return ( Number(firstValue) / Number(lastValue) ) + lastOperator;
 			}
 		});
-
 	}
 
-	function removeLastItem(number){
-		if(isLastItemAnOperation(number)){
-			return number.slice(0,-1);
-		}
-		return number;
-	}
+
 
 	function isLastItemAnOperation(number){
-		var operations = ['+', '-', '*', '/'];
+		var operations = ['+', '-', 'x', '÷'];
 		var lastItem = number.split('').pop();
 		return operations.some(function(operator) {
 			return operator === lastItem;
 		});
+	}
+
+	function removeLastItemIfItIsAnOperator(number){
+		if(isLastItemAnOperation(number)){
+			return number.slice(0,-1);
+		}
+		return number;
 	}
 
 
