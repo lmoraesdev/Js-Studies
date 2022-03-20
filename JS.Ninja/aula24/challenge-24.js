@@ -18,16 +18,9 @@
 	);
 	var $buttonCE = doc.querySelector('[data-js="button-ce"]');
 	var $buttonEqual = doc.querySelector('[data-js="button-equal"]');
-	var $visor = doc.querySelector('[data-js="visor"]');
-	var $buttonsNumbers = doc.querySelectorAll('[data-js="button-number"]');
-	var $buttonsOperations = doc.querySelectorAll(
-		'[data-js="button-operation"]'
-	);
-	var $buttonCE = doc.querySelector('[data-js="button-ce"]');
-	var $buttonEqual = doc.querySelector('[data-js="button-equal"]');
 
 	function initialize() {
-		initvariables();
+		initEvents();
 	}
 
 	function initEvents() {
@@ -63,30 +56,37 @@
 	}
 
 	function getOperations() {
-		return ["+", "-", "x", "÷"];
+		return Array.prototype.map.call($buttonsOperations, function (button) {
+			return button.value;
+		});
 	}
 
 	function removeLastItemIfItIsAnOperator(string) {
-		if (isLastItemAnOperation(string)) {
+		if (isLastItemAnOperation(string))
 			return string.slice(0, -1);
-		}
 		return string;
 	}
 
 	function handleClickEqual() {
 		$visor.value = removeLastItemIfItIsAnOperator($visor.value);
-		var allValues = $visor.value.match(/\d+[+÷*\/-]?/g);
+		var allValues = $visor.value.match(getRegExOperations());
 		$visor.value = allValues.reduce(calculateAllValues);
+	}
+
+	function getRegExOperations() {
+		return new RegExp("\\d+[" + getOperations().join("") + "]?", "g");
 	}
 
 	function calculateAllValues(accumulated, actual) {
 		var firstValue = accumulated.slice(0, -1);
 		var operator = accumulated.split("").pop();
 		var lastValue = removeLastItemIfItIsAnOperator(actual);
-		var lastOperator = isLastItemAnOperation(actual)
-			? actual.split("").pop()
-			: "";
+		var lastOperator = getLastOperator(actual);
 		return doOperations(firstValue, lastValue, operator) + lastOperator;
+	}
+
+	function getLastOperator(value) {
+		return isLastItemAnOperation(value) ? actual.split("").pop() : "";
 	}
 
 	function doOperations(firstValue, lastValue, operator) {
