@@ -1,4 +1,4 @@
-(function(win, doc){
+(function (win, doc) {
 	'use strict';
 	/*
 	Vamos desenvolver mais um projeto. A ideia é fazer uma mini-calculadora.
@@ -27,72 +27,75 @@
 	var $visor = doc.querySelector('[data-js="visor"]');
 	var $buttonsNumbers = doc.querySelectorAll('[data-js="button-number"]');
 	var $buttonCE = doc.querySelector('[data-js="button-ce"]');
-	var $buttonOperations = doc.querySelectorAll('[data-js="button-operation"]');
+	var $buttonOperations = doc.querySelectorAll(
+		'[data-js="button-operation"]'
+	);
 	var $buttonEqual = doc.querySelector('[data-js="button-equal"]');
 
-	$buttonsNumbers.forEach(function(button){
-		button.addEventListener('click', handleClickNumber, false);
+	$buttonsNumbers.forEach(function (button) {
+		button.addEventListener("click", handleClickNumber, false);
 	});
 
-	$buttonOperations.forEach(function(button){
-		button.addEventListener('click', handleClickOperation, false);
+	$buttonOperations.forEach(function (button) {
+		button.addEventListener("click", handleClickOperation, false);
 	});
 
-	$buttonCE.addEventListener('click', handleClickCE, false);
-	$buttonEqual.addEventListener('click', handleClickEqual, false);
+	$buttonCE.addEventListener("click", handleClickCE, false);
+	$buttonEqual.addEventListener("click", handleClickEqual, false);
 
-	function handleClickOperation(){
+	function handleClickOperation() {
 		$visor.value = removeLastItemIfItIsAnOperator($visor.value);
 		$visor.value += this.value;
 	}
 
-	function handleClickNumber(){
+	function handleClickNumber() {
 		$visor.value += this.value;
 	}
 
-	function handleClickCE(){
-		$visor.value = '';
+	function handleClickCE() {
+		$visor.value = "";
 	}
 
-	function handleClickEqual(){
+	function handleClickEqual() {
 		$visor.value = removeLastItemIfItIsAnOperator($visor.value);
-		var allvalues = $visor.value.match(/\d+[+-x÷]?/g);
+		var allvalues = $visor.value.match(/\d+[+-x÷*\/]?/g);
 
-		$visor.value = allvalues.reduce(function(accumulated, actual) {
+		$visor.value = allvalues.reduce(function (accumulated, actual) {
 			var firstValue = accumulated.slice(0, -1);
-			var operator = accumulated.split('').pop();
+			var operator = accumulated.split("").pop();
 			var lastValue = removeLastItemIfItIsAnOperator(actual);
-			var lastOperator = isLastItemAnOperation(actual) ? actual.split('').pop() : '';
-
-			switch(operator){
-				case '+':
-					return ( Number(firstValue) + Number(lastValue) ) + lastOperator;
-				case '-':
-					return ( Number(firstValue) - Number(lastValue) ) + lastOperator;
-				case 'x':
-					return ( Number(firstValue) * Number(lastValue) ) + lastOperator;
-				case '÷':
-					return ( Number(firstValue) / Number(lastValue) ) + lastOperator;
-			}
-		});
-	}
-
-
-
-	function isLastItemAnOperation(number){
-		var operations = ['+', '-', 'x', '÷'];
-		var lastItem = number.split('').pop();
-		return operations.some(function(operator) {
-			return operator === lastItem;
-		});
-	}
-
-	function removeLastItemIfItIsAnOperator(number){
-		if(isLastItemAnOperation(number)){
-			return number.slice(0,-1);
+			var lastOperator = isLastItemAnOperation(actual)
+				? actual.split("").pop()
+				: "";
+			return calculator(firstValue, lastValue, operator, lastOperator);
+			});
 		}
-		return number;
-	}
 
+		function calculator(number1, number2, operator, lastOperator) {
+			if (operator === "+") {
+				return Number(number1) + Number(number2) + lastOperator;
+			} else if (operator === "-") {
+				return Number(number1) - Number(number2) + lastOperator;
+			} else if (operator === "x" || operator === "*") {
+				return Number(number1) * Number(number2) + lastOperator;
+			} else if (operator === "÷" || operator === "/") {
+				return Number(number1) / Number(number2) + lastOperator;
+			}
+		}
 
-}(window, document));
+		function isLastItemAnOperation(number) {
+			var operations = ["+", "-", "x", "÷"];
+			var lastItem = number.split("").pop();
+			return operations.some(function (operator) {
+				return operator === lastItem;
+			});
+		}
+
+		function removeLastItemIfItIsAnOperator(number) {
+			if (isLastItemAnOperation(number)) {
+				return number.slice(0, -1);
+			}
+			return number;
+		}
+
+})(window, document);
